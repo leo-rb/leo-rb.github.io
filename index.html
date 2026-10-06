@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Léo Rimbert, AI Engineer</title>
+<meta name="description" content="Léo Rimbert, AI Engineer en alternance. Machine learning, deep learning, MLOps, agents LLM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c0c0d;
+  --raise:#141416;
+  --rule:#2a2a2e;
+  --paper:#ececee;
+  --dim:#8b8b93;
+  --signal:#f2a93b;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--signal);color:var(--ink)}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+
+.shell{display:grid;grid-template-columns:220px minmax(0,820px);gap:0 64px;max-width:1140px;margin:0 auto;padding:0 32px}
+
+/* index */
+aside{position:sticky;top:0;align-self:start;height:100vh;padding:48px 0;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--mono);font-size:13px}
+aside .id{color:var(--paper);font-weight:500}
+aside .id span{display:block;color:var(--dim);font-weight:400}
+aside nav{display:flex;flex-direction:column;gap:2px;margin-top:40px}
+aside nav a{color:var(--dim);padding:5px 0 5px 14px;border-left:1px solid var(--rule)}
+aside nav a:hover{color:var(--paper)}
+aside nav a.on{color:var(--paper);border-left-color:var(--signal)}
+aside .foot{color:var(--dim);line-height:1.8}
+aside .foot a:hover{color:var(--signal)}
+
+main{padding:48px 0 120px}
+section{padding-top:96px}
+section:first-child{padding-top:0}
+.label{font-family:var(--mono);font-size:13px;color:var(--dim);padding-bottom:12px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between}
+.label b{color:var(--paper);font-weight:500}
+
+/* hero */
+h1{font-family:var(--mono);font-weight:500;font-size:clamp(40px,7vw,76px);line-height:.95;letter-spacing:-.045em;margin:36px 0 40px}
+.intro{font-size:19px;line-height:1.55;max-width:34em;margin-bottom:48px}
+.intro em{font-style:normal}
+
+.spec{width:100%;border-collapse:collapse;font-size:14.5px}
+.spec th,.spec td{text-align:left;vertical-align:top;padding:11px 0;border-bottom:1px solid var(--rule)}
+.spec th{font-family:var(--mono);font-weight:400;color:var(--dim);width:180px;padding-right:24px;font-size:13px}
+.spec a{border-bottom:1px solid var(--rule)}
+.spec a:hover{border-color:var(--signal);color:var(--signal)}
+
+/* project rows */
+.row{border-bottom:1px solid var(--rule)}
+.row>button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:1.1fr 1.6fr 1.2fr 20px;gap:24px;padding:18px 0;align-items:baseline}
+.row>button:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
+.row .name{font-family:var(--mono);font-weight:500;font-size:15.5px}
+.row .what{color:var(--dim);font-size:14.5px}
+.row .model{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.row .pm{font-family:var(--mono);color:var(--dim);text-align:right;transition:transform .2s}
+.row>button:hover .name{color:var(--signal)}
+.row.open .pm{transform:rotate(45deg);color:var(--signal)}
+.row .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.row.open .body{grid-template-rows:1fr}
+.row .body>div{overflow:hidden}
+.row .inner{padding:2px 0 26px;display:grid;grid-template-columns:1.1fr 2.8fr;gap:24px}
+.row .inner .meta{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.9}
+.row .inner .meta a{color:var(--signal)}
+.row .inner .meta a:hover{text-decoration:underline}
+.row .inner ul{list-style:none;font-size:14.5px}
+.row .inner li{padding-left:18px;position:relative;margin-bottom:8px;max-width:58ch}
+.row .inner li::before{content:"–";position:absolute;left:0;color:var(--dim)}
+.wipmark{font-family:var(--mono);font-size:11px;color:var(--signal);margin-left:8px;font-weight:400}
+
+/* experience */
+.job{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.job .when{font-family:var(--mono);font-size:13px;color:var(--dim);line-height:1.6}
+.job h3{font-size:16px;font-weight:500}
+.job h3 span{color:var(--dim);font-weight:400}
+.job ul{list-style:none;margin-top:8px;color:var(--dim);font-size:14.5px}
+.job li{padding-left:18px;position:relative;margin-bottom:4px;max-width:60ch}
+.job li::before{content:"–";position:absolute;left:0}
+.job.now .when{color:var(--signal)}
+
+/* stack */
+.kv{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:13px 0;border-bottom:1px solid var(--rule);font-size:14.5px}
+.kv dt{font-family:var(--mono);font-size:13px;color:var(--dim)}
+
+/* contact */
+.big{font-family:var(--mono);font-weight:500;font-size:clamp(22px,3.6vw,34px);letter-spacing:-.03em;display:inline-block;margin:28px 0 8px;border-bottom:2px solid var(--signal)}
+.big:hover{color:var(--signal)}
+.small{color:var(--dim);font-size:14.5px}
+
+/* load sequence: rules draw left to right, once */
+@media (prefers-reduced-motion:no-preference){
+  .ld{opacity:0;transform:translateY(6px);animation:in .5s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i,0) * 55ms + 120ms)}
+  @keyframes in{to{opacity:1;transform:none}}
+}
+
+
+/* ---- detection box on the name ---- */
+.target{position:relative;display:inline-block;cursor:crosshair}
+.bbox{position:absolute;inset:4px -18px -10px -14px;border:1px solid var(--signal);pointer-events:none}
+.bbox i{position:absolute;width:9px;height:9px;border:2px solid var(--signal)}
+.bbox i:nth-child(1){top:-2px;left:-2px;border-right:0;border-bottom:0}
+.bbox i:nth-child(2){top:-2px;right:-2px;border-left:0;border-bottom:0}
+.bbox i:nth-child(3){bottom:-2px;left:-2px;border-right:0;border-top:0}
+.bbox i:nth-child(4){bottom:-2px;right:-2px;border-left:0;border-top:0}
+.bbox b{position:absolute;left:-1px;top:-23px;background:var(--signal);color:var(--ink);
+  font:500 11.5px/1 var(--mono);letter-spacing:0;padding:5px 7px;white-space:nowrap}
+.scanbar{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--signal);opacity:0;pointer-events:none;
+  box-shadow:0 0 0 1px rgba(242,169,59,.15)}
+
+/* ---- inference sweep when a project opens ---- */
+.row{position:relative;overflow:hidden}
+.row::after{content:"";position:absolute;top:0;bottom:0;left:0;width:90px;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(242,169,59,.10) 85%,var(--signal) 85%,var(--signal) 87%,transparent 87%);
+  transform:translateX(-100px)}
+.row.sweep::after{animation:sweep .55s cubic-bezier(.4,0,.2,1)}
+@keyframes sweep{0%{opacity:1;transform:translateX(-100px)}100%{opacity:1;transform:translateX(calc(820px + 20px))}}
+
+/* ---- sliding marker in the index ---- */
+aside nav{position:relative}
+aside nav a.on{border-left-color:var(--rule)}
+.marker{position:absolute;left:0;width:1px;background:var(--signal);transition:top .35s cubic-bezier(.4,0,.2,1),height .35s}
+
+/* ---- section rules draw in ---- */
+.label{border-bottom:none;position:relative}
+.label::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--rule);transform-origin:left}
+
+@media (prefers-reduced-motion:no-preference){
+  .bbox{clip-path:inset(-30px 100% 100% -6px);animation:boxin .7s cubic-bezier(.6,0,.2,1) .75s forwards}
+  .bbox b{opacity:0;animation:fade .25s ease 1.45s forwards}
+  @keyframes boxin{60%{clip-path:inset(-30px -6px 100% -6px)}100%{clip-path:inset(-30px -6px -6px -6px)}}
+  @keyframes fade{to{opacity:1}}
+  .target.rescan .bbox{animation:none;clip-path:none;opacity:0}
+  .target.rescan .scanbar{animation:bar .6s cubic-bezier(.4,0,.2,1)}
+  @keyframes bar{0%{opacity:1;left:0}100%{opacity:1;left:100%}}
+  .label::after{transform:scaleX(0);transition:transform .9s cubic-bezier(.6,0,.2,1)}
+  .label.seen::after{transform:scaleX(1)}
+}
+@media (max-width:900px){ .bbox{inset:2px -10px -8px -8px} }
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;padding:0 20px}
+  aside{display:none}
+  aside nav,aside .foot{display:none}
+  main{padding-top:40px}
+  .row>button{grid-template-columns:1fr 20px;gap:4px 16px}
+  .row .what{grid-column:1;grid-row:2}
+  .row .model{display:none}
+  .row .pm{grid-column:2;grid-row:1}
+  .row .inner,.job,.kv{grid-template-columns:1fr;gap:6px}
+  .spec th{width:120px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<aside>
+  <div>
+    <div class="id">Léo Rimbert<span>AI Engineer</span></div>
+    <nav>
+      <a href="#about">Profil</a>
+      <a href="#projets">Projets</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot">
+    <a href="https://github.com/leo-rb" target="_blank" rel="noopener">GitHub</a><br>
+    <a href="https://www.linkedin.com/in/leorimbert/" target="_blank" rel="noopener">LinkedIn</a><br>
+    <a href="mailto:leorimbert@gmail.com">Email</a>
+  </div>
+</aside>
+
+<main>
+
+<section id="about">
+  <h1 class="ld" style="--i:0"><span class="target" title="Relancer la détection">Léo<br>Rimbert<span class="bbox" aria-hidden="true"><i></i><i></i><i></i><i></i><b>réel · 0.99</b></span><span class="scanbar" aria-hidden="true"></span></span></h1>
+  <p class="intro ld" style="--i:1">J'entraîne des modèles qui distinguent le vrai du faux : transactions frauduleuses, voix clonées, images générées. Puis je les mets en production.</p>
+  <table class="spec">
+    <tr class="ld" style="--i:2"><th>Poste</th><td>AI Engineer en alternance, AS International Group</td></tr>
+    <tr class="ld" style="--i:3"><th>Domaines</th><td>Machine learning, deep learning, MLOps, agents LLM</td></tr>
+    <tr class="ld" style="--i:4"><th>Formation</th><td>Master IA &amp; Big Data, ESIEE-IT · Ingénieur ECAM-EPMI</td></tr>
+    <tr class="ld" style="--i:5"><th>Langues</th><td>Français, anglais C1 (TOEIC 920), espagnol</td></tr>
+    <tr class="ld" style="--i:6"><th>Contact</th><td><a href="mailto:leorimbert@gmail.com">leorimbert@gmail.com</a></td></tr>
+  </table>
+</section>
+
+<section id="projets">
+  <div class="label"><b>Projets</b><span>6</span></div>
+
+  <div class="row">
+    <button aria-expanded="false"><span class="name">Deepfake Shield</span><span class="what">Détecter si un texte, une image, un audio ou une vidéo a été généré par IA</span><span class="model">ResNet18 · Transformer · TF-IDF</span><span class="pm">+</span></button>
+    <div class="body"><div><div class="inner">
+      <div class="meta">PyTorch<br>Hugging Face<br>FastAPI<br>Docker<br><a href="https://github.com/leo-rb/deepfake-shield" target="_blank" rel="noopener">Code source</a></div>
+      <ul>
+        <li>Extension Chrome : clic droit sur un contenu suspect pour l'analyser sans quitter la page.</li>
+        <li>Un modèle par format, derrière une seule API déployée sur Hugging Face Spaces.</li>
+        <li>Grad-CAM via des hooks PyTorch : une heatmap montre ce qui a fait basculer la décision.</li>
+        <li>Les corrections des utilisateurs alimentent un dataset pour les ré-entraînements.</li>
+      </ul>
+    </div></div></div>
+  </div>
+
+  <div class="row">
+    <button aria-expanded="false"><span class="name">Fraud Detection</span><span class="what">Repérer la fraude bancaire dans des données où elle est ultra-minoritaire</span><span class="model">Random Forest · SMOTE</span><span class="pm">+</span></button>
+    <div class="body"><div><div class="inner">
+      <div class="meta">Scikit-Learn<br>MLflow<br>PostgreSQL<br>Docker Compose<br><a href="https://github.com/leo-rb/Fraud-Detection" target="_blank" rel="noopener">Code source</a></div>
+      <ul>
+        <li>Rééquilibrage des classes par SMOTE avant l'entraînement.</li>
+        <li>L'API charge le meilleur modèle depuis le registre MLflow : un meilleur modèle est servi sans toucher au code.</li>
+        <li>Cinq services lancés par un seul <code>docker-compose up</code>.</li>
+      </ul>
+    </div></div></div>
+  </div>
+
+  <div class="row">
+    <button aria-expanded="false"><span class="name">Urban Pulse</span><span class="what">Prédire le CO₂ en ville à partir du trafic et de la météo</span><span class="model">Régression Scikit-Learn</span><span class="pm">+</span></button>
+    <div class="body"><div><div class="inner">
+      <div class="meta">MLflow<br>MinIO<br>FastAPI<br>Streamlit<br><a href="https://github.com/leo-rb/urban-pulse-mlops" target="_blank" rel="noopener">Code source</a></div>
+      <ul>
+        <li>Des capteurs IoT simulés alimentent PostgreSQL en continu.</li>
+        <li>Artefacts et registre de modèles sur MinIO, stockage compatible S3.</li>
+        <li>Une chaîne de production complète, démarrée en une commande.</li>
+      </ul>
+    </div></div></div>
+  </div>
+
+  <div class="row">
+    <button aria-expanded="false"><span class="name">Audio Deepfake</span><span class="what">Distinguer une voix réelle d'une voix clonée</span><span class="model">CNN · Mel-spectrogrammes</span><span class="pm">+</span></button>
+    <div class="body"><div><div class="inner">
+      <div class="meta">PyTorch<br>librosa<br>ASVspoof 2019<br><a href="https://github.com/leo-rb/AudioIntelligence-DeepfakeDetector" target="_blank" rel="noopener">Code source</a></div>
+      <ul>
+        <li>Chaque audio devient une image temps × fréquence où les artefacts de synthèse deviennent visibles.</li>
+        <li>Entraîné sur ASVspoof 2019, le benchmark de référence en détection de spoofing vocal.</li>
+        <li>Inférence temps réel via FastAPI et une interface Streamlit.</li>
+      </ul>
+    </div></div></div>
+  </div>
+
+  <div class="row">
+    <button aria-expanded="false"><span class="name">Détection d'EPI</span><span class="what">Vérifier le port du casque et du gilet sur un chantier, depuis une caméra</span><span class="model">YOLOv8 fine-tuné</span><span class="pm">+</span></button>
+    <div class="body"><div><div class="inner">
+      <div class="meta">Ultralytics<br>OpenCV<br>Roboflow<br><a href="https://github.com/leo-rb/Projet-Computer-Vision" target="_blank" rel="noopener">Code source</a></div>
+      <ul>
+        <li>Fine-tuning de YOLOv8 sur des images de chantier annotées.</li>
+        <li>Inférence temps réel sur webcam : chaque équipement est encadré et labellisé.</li>
+      </ul>
+    </div></div></div>
+  </div>
+
+  <div class="row">
+    <button aria-expanded="false"><span class="name">MusicMind OS<span class="wipmark">en cours</span></span><span class="what">Cartographier les influences musicales avec un graphe et des agents IA</span><span class="model">CLAP · Neo4j · Llama 3</span><span class="pm">+</span></button>
+    <div class="body"><div><div class="inner">
+      <div class="meta">Neo4j<br>LangChain<br>Ollama<br>DVC<br>Dépôt privé</div>
+      <ul>
+        <li>Contrainte de départ : zéro budget, tout tourne en local, sans GPU.</li>
+        <li>Graphe d'influences dans Neo4j, embeddings audio extraits avec CLAP.</li>
+        <li>Un agent interroge déjà le graphe en ligne de commande. Suite : recherche hybride graphe + vecteurs avec LangGraph.</li>
+      </ul>
+    </div></div></div>
+  </div>
+</section>
+
+<section id="parcours">
+  <div class="label"><b>Parcours</b><span>2021 – aujourd'hui</span></div>
+  <div class="job now">
+    <div class="when">Sept. 2026 –<br>Neuilly-sur-Seine</div>
+    <div><h3>AI Engineer <span>· AS International Group, alternance</span></h3>
+      <ul><li>Skills IA déterministes et hybrides en Python pour une plateforme d'agents internes.</li><li>Intégration de LLM, défense contre l'injection de prompt, tests automatisés.</li></ul></div>
+  </div>
+  <div class="job">
+    <div class="when">Sept. 2025 – août 2026<br>Massy</div>
+    <div><h3>Data Analyst <span>· Crédit Agricole Auto Bank, alternance</span></h3>
+      <ul><li>Suivi des grilles de valeurs résiduelles.</li><li>Analyse d'impact d'une évolution de règle d'octroi crédit à partir des données contrats.</li><li>Automatisation du fichier de garanties Tesla.</li></ul></div>
+  </div>
+  <div class="job">
+    <div class="when">Fév. – juil. 2025<br>Saint-Denis</div>
+    <div><h3>Analyste SI, Data Quality <span>· Vinci Energies, stage</span></h3>
+      <ul><li>Qualité des données facturation, clients et heures.</li><li>Requêtes SQL sur SAP HANA, dashboards SAP Analytics Cloud.</li></ul></div>
+  </div>
+  <div class="job">
+    <div class="when">Nov. 2023 – mars 2024<br>Nanterre</div>
+    <div><h3>Data Analyst <span>· GRDF, stage</span></h3>
+      <ul><li>Rapports MicroStrategy, application AppSheet pour les techniciens, études statistiques.</li></ul></div>
+  </div>
+  <div class="job">
+    <div class="when">Juin 2021 – sept. 2023<br>Puiseux</div>
+    <div><h3>Équipier polyvalent <span>· McDonald's, job étudiant</span></h3>
+      <ul><li>Deux ans en parallèle des études. Formation des nouveaux arrivants.</li></ul></div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="label"><b>Stack</b><span>outils utilisés en projet ou en poste</span></div>
+  <dl>
+    <div class="kv"><dt>ML / DL</dt><dd>Python, Scikit-Learn, PyTorch, YOLOv8, Hugging Face Transformers, Grad-CAM</dd></div>
+    <div class="kv"><dt>LLM</dt><dd>LangChain, Ollama, agents et skills hybrides, sécurité des prompts</dd></div>
+    <div class="kv"><dt>Signal</dt><dd>OpenCV, librosa, CLAP</dd></div>
+    <div class="kv"><dt>MLOps</dt><dd>Docker, MLflow, MinIO, DVC, FastAPI, Streamlit</dd></div>
+    <div class="kv"><dt>Data</dt><dd>SQL, PostgreSQL, SAP HANA, Neo4j, Spark, Azure</dd></div>
+    <div class="kv"><dt>BI</dt><dd>Power BI, SAP Analytics Cloud, MicroStrategy</dd></div>
+  </dl>
+</section>
+
+<section id="contact">
+  <div class="label"><b>Contact</b><span>Île-de-France</span></div>
+  <a class="big" href="mailto:leorimbert@gmail.com">leorimbert@gmail.com</a>
+  <p class="small">Ou sur <a href="https://www.linkedin.com/in/leorimbert/" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">LinkedIn</a> et <a href="https://github.com/leo-rb" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">GitHub</a>.</p>
+</section>
+
+</main>
+</div>
+
+<script>
+document.querySelectorAll('.row>button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const r=b.parentElement, open=!r.classList.contains('open');
+    r.classList.toggle('open',open);
+    b.setAttribute('aria-expanded',open);
+  });
+});
+const links=[...document.querySelectorAll('aside nav a')];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting) links.forEach(l=>l.classList.toggle('on',l.hash==='#'+e.target.id));
+}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('main section').forEach(s=>spy.observe(s));
+
+/* sweep on open */
+document.querySelectorAll('.row>button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const r=b.parentElement;
+    if(r.classList.contains('open')){ r.classList.remove('sweep'); void r.offsetWidth; r.classList.add('sweep'); }
+  });
+});
+document.querySelectorAll('.row').forEach(r=>r.addEventListener('animationend',()=>r.classList.remove('sweep')));
+
+/* click the name to re-run detection */
+const tgt=document.querySelector('.target');
+tgt.addEventListener('click',()=>{
+  const box=tgt.querySelector('.bbox'), lab=box.querySelector('b');
+  tgt.classList.add('rescan');
+  setTimeout(()=>{
+    tgt.classList.remove('rescan');
+    box.style.animation='none'; lab.style.animation='none';
+    void box.offsetWidth;
+    box.style.animation='boxin .5s cubic-bezier(.6,0,.2,1) forwards';
+    lab.style.opacity=0;
+    lab.style.animation='fade .2s ease .5s forwards';
+  },600);
+});
+
+/* sliding marker */
+const nav=document.querySelector('aside nav'), mk=document.createElement('span');
+mk.className='marker'; nav.appendChild(mk);
+function place(){ const a=nav.querySelector('a.on')||nav.querySelector('a'); mk.style.top=a.offsetTop+'px'; mk.style.height=a.offsetHeight+'px'; }
+new MutationObserver(place).observe(nav,{subtree:true,attributes:true,attributeFilter:['class']});
+addEventListener('resize',place); place();
+
+/* rules draw when a section comes into view */
+const ro=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('seen'); ro.unobserve(e.target);} }),{threshold:1});
+document.querySelectorAll('.label').forEach(l=>ro.observe(l));
+</script>
+</body>
+</html>
